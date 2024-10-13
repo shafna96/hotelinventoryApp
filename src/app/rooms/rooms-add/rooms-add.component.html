@@ -1,0 +1,112 @@
+<div *ngIf="successMessage !== ''" class="alert alert-success">
+  {{ successMessage }}
+</div>
+<form [formGroup]="addRoomForm" (ngSubmit)="addRoom()">
+  <div class="row mb-3">
+    <div class="form-group col-md-6">
+      <label for="roomType">Room Type</label>
+      <input
+        required
+        type="text"
+        formControlName="roomType"
+        class="form-control"
+        id="roomType"
+        placeholder="Enter Room Type"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="amenities">Amenities</label>
+      <input
+        required
+        type="text"
+        formControlName="amenities"
+        class="form-control"
+        id="amenities"
+        maxlength="20"
+        placeholder="Enter Amenities"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="addRoomForm.get('amenities')?.errors?.['minlength']"
+      >
+        Amenities should be at least 5 characters
+      </div>
+      <div
+        class="alert alert-danger"
+        *ngIf="addRoomForm.get('amenities')?.dirty && addRoomForm.get('amenities')?.errors?.['required']"
+      >
+        Amenities are required
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="form-group col-md-6">
+      <label for="price">Room Price</label>
+      <input
+        required
+        type="number"
+        formControlName="price"
+        class="form-control"
+        id="price"
+        placeholder="Enter Room Price"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="form-group">
+      <label for="photos">Photos (Provide Link)</label>
+      <input
+        required
+        type="text"
+        formControlName="photos"
+        class="form-control"
+        id="photos"
+        placeholder="Enter Photos URL"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="form-group col-md-6">
+      <label for="checkinTime">Check-in Time</label>
+      <input
+        required
+        type="datetime-local"
+        formControlName="checkinTime"
+        class="form-control"
+        id="checkinTime"
+      />
+    </div>
+    <div class="form-group col-md-6">
+      <label for="checkoutTime">Check-out Time</label>
+      <input
+        required
+        type="datetime-local"
+        formControlName="checkoutTime"
+        class="form-control"
+        id="checkoutTime"
+      />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="form-group col-md-6">
+      <label for="rating">Rating</label>
+      <input
+        required
+        type="number"
+        formControlName="rating"
+        class="form-control"
+        id="rating"
+        placeholder="Enter Rating"
+      />
+    </div>
+  </div>
+  <div class="mb-3 d-flex justify-content-end">
+    <button
+      [disabled]="addRoomForm.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
