@@ -139,44 +139,44 @@ export class RoomsComponent
     this.selectedRoom = room;
   }
 
-  addRoom() {
-    const room: RoomList = {
-      // roomNumber: "4",
-      id: 1,
-      roomType: "Deluxe Room",
-      amenities: "Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen",
-      price: 1500,
-      photos:
-        "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      checkinTime: new Date("11-Nov-2021"),
-      checkoutTime: new Date("12-Nov-2021"),
-      rating: 2.5,
-    };
-    // this.roomList.push(room);
-    // this.roomList = [...this.roomList, room];
-    this.roomService.addRoom(room).subscribe((data) => {
-      this.roomList = data;
-    });
-  }
+  // addRoom() {
+  //   const room: RoomList = {
+  //     // roomNumber: "4",
+  //     id: 1,
+  //     roomType: "Deluxe Room",
+  //     amenities: "Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen",
+  //     price: 1500,
+  //     photos:
+  //       "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  //     checkinTime: new Date("11-Nov-2021"),
+  //     checkoutTime: new Date("12-Nov-2021"),
+  //     rating: 2.5,
+  //   };
+  //   // this.roomList.push(room);
+  //   // this.roomList = [...this.roomList, room];
+  //   this.roomService.addRoom(room).subscribe((data) => {
+  //     this.roomList = data;
+  //   });
+  // }
 
-  editRoom() {
-    const room: RoomList = {
-      id: 3,
-      roomNumber: "3",
-      roomType: "Deluxe Room",
-      amenities: "Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen",
-      price: 1500,
-      photos:
-        "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      checkinTime: new Date("11-Nov-2021"),
-      checkoutTime: new Date("12-Nov-2021"),
-      rating: 2.5,
-    };
+  // editRoom() {
+  //   const room: RoomList = {
+  //     id: 3,
+  //     roomNumber: "3",
+  //     roomType: "Deluxe Room",
+  //     amenities: "Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen",
+  //     price: 1500,
+  //     photos:
+  //       "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  //     checkinTime: new Date("11-Nov-2021"),
+  //     checkoutTime: new Date("12-Nov-2021"),
+  //     rating: 2.5,
+  //   };
 
-    this.roomService.editRoom(room).subscribe((data) => {
-      this.roomList = data;
-    });
-  }
+  //   this.roomService.editRoom(room).subscribe((data) => {
+  //     this.roomList = data;
+  //   });
+  // }
 
   // deleteRoom() {
   //   this.roomService

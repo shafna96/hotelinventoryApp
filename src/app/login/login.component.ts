@@ -17,9 +17,6 @@ import Swal from "sweetalert2";
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  // email: string = "";
-  // password: string = "";
-
   constructor(
     private route: Router,
     private loginService: LoginService,
@@ -36,16 +33,37 @@ export class LoginComponent implements OnInit {
   login() {
     const email = this.loginForm.get("email")?.value;
     const password = this.loginForm.get("password")?.value;
-    this.loginService.login(email, password).subscribe((data) => {
-      // Swal.fire("Login successful");
-      Swal.fire({
-        position: "bottom-end",
-        icon: "success",
-        title: "Login successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      this.route.navigateByUrl("/rooms");
-    });
+
+    this.loginService.login(email, password).subscribe(
+      (success) => {
+        if (success) {
+          Swal.fire({
+            position: "bottom-end",
+            icon: "success",
+            title: "Login successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.route.navigateByUrl("/rooms");
+        } else {
+          Swal.fire({
+            position: "bottom-end",
+            icon: "error",
+            title: "Invalid Credential",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      },
+      (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while logging in. Please try again later.",
+          confirmButtonText: "Ok",
+        });
+        console.error("Login Error:", error);
+      }
+    );
   }
 }

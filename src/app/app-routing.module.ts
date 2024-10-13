@@ -17,9 +17,12 @@ const routes: Routes = [
     path: "",
     loadChildren: () =>
       import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
-    // canActivate: [loginGuard],
+    canActivate: [loginGuard], // Apply loginGuard to protect dashboard routes
   },
-  { path: "**", component: NotfoundComponent },
+  {
+    path: "**",
+    component: NotfoundComponent,
+  },
 ];
 
 @NgModule({

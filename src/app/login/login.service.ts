@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@angular/core";
 import { AppConfig } from "../AppConfig/appconfig.interface";
 import { HttpClient } from "@angular/common/http";
 import { APP_SERVICE_CONFIG } from "../AppConfig/appconfig.service";
-import { catchError, map, Observable } from "rxjs";
+import { catchError, map, Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -42,6 +42,10 @@ export class LoginService {
             return true;
           }
           return false;
+        }),
+        catchError((error) => {
+          console.error("Login failed:", error);
+          return of(false); // Return `false` when an error occurs
         })
       );
   }
