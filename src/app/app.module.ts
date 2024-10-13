@@ -27,6 +27,7 @@ import { HeaderModule } from "./header/header.module";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { RegisterComponent } from "./register/register.component";
 import { AuthModule } from "./auth/auth.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -48,10 +49,10 @@ function initFactory(initService: InitService) {
   ],
   imports: [
     BrowserModule,
+    DashboardModule,
     AuthModule,
     ReactiveFormsModule,
     // RoomsModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,
@@ -62,6 +63,7 @@ function initFactory(initService: InitService) {
     MatListModule,
     FormsModule,
     HeaderModule,
+    AppRoutingModule,
   ],
   providers: [
     {

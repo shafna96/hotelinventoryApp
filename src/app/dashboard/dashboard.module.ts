@@ -6,6 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatIconModule,
     MatListModule,
     FormsModule,
+    DashboardRoutingModule,
   ],
   exports: [],
 })

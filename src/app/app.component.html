@@ -30,5 +30,6 @@
 <!-- <router-outlet> -->
 <!-- <hinv-login *ngIf="!loginService.isLoggedIn()"></hinv-login> -->
 <hinv-auth *ngIf="!loginService.isLoggedIn()"></hinv-auth>
-<hinv-app-nav *ngIf="loginService.isLoggedIn()"></hinv-app-nav>
+<!-- <hinv-app-nav *ngIf="loginService.isLoggedIn()"></hinv-app-nav> -->
+<hinv-dashboard *ngIf="loginService.isLoggedIn()"></hinv-dashboard>
 <!-- </router-outlet> -->
