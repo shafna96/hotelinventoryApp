@@ -30,14 +30,40 @@
       <button [routerLink]="['/booking', room.roomNumber]">Book Room</button>
     </td>
     <td class="raw">
-      <button [routerLink]="['edit', room.id]">
+      <button (click)="openEditModal(editRoomTemplate, room.id)">
         <i class="fas fa-edit"></i>
-        <!-- Edit Icon -->
       </button>
+      <!-- let-room="room" -->
+      <ng-template
+        #editRoomTemplate
+        let-isEditMode="isEditMode"
+        let-roomId="roomId"
+      >
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Room</h4>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <hinv-rooms-add
+            [isEditMode]="true"
+            [roomId]="room.id"
+            (formSubmitted)="closeModal()"
+          ></hinv-rooms-add>
+        </div>
+      </ng-template>
+
+      <!-- <button [routerLink]="['edit', room.id]">
+        <i class="fas fa-edit"></i>
+      
+      </button> -->
 
       <button (click)="deleteRoom(room.id)">
         <i class="fas fa-trash"></i>
-        <!-- Delete Icon -->
       </button>
     </td>
   </tr>

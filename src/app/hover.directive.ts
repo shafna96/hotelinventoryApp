@@ -14,7 +14,7 @@ export class HoverDirective implements OnInit {
   @Input() hinvHover: string = "red";
 
   constructor(private element: ElementRef, private renderer: Renderer2) {
-    console.log(this.element);
+    // console.log(this.element);
   }
 
   ngOnInit(): void {

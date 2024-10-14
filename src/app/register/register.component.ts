@@ -113,8 +113,8 @@ export class RegisterComponent implements OnInit {
   }
 
   updateUsername() {
-    const email = this.userForm.get("email")?.value; // Get the email value
-    this.userForm.get("username")?.setValue(email); // Set the username to the email
+    const email = this.userForm.get("email")?.value;
+    this.userForm.get("username")?.setValue(email);
   }
 
   // register() {
@@ -162,7 +162,7 @@ export class RegisterComponent implements OnInit {
 
         this.registerService.register(userPayload).subscribe(
           (response) => {
-            console.log("Registration successful", response);
+            // console.log("Registration successful", response);
             Swal.fire({
               position: "bottom-end",
               icon: "success",
@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
             this.router.navigateByUrl("/rooms");
           },
           (error) => {
-            console.error("Registration failed", error);
+            // console.error("Registration failed", error);
             // Swal.fire("Registration failed");
             Swal.fire({
               position: "bottom-end",
@@ -186,7 +186,7 @@ export class RegisterComponent implements OnInit {
           }
         );
       } else {
-        console.log("Passwords do not match");
+        // console.log("Passwords do not match");
         // Swal.fire("Passwords do not match");
         Swal.fire({
           position: "bottom-end",
@@ -197,7 +197,7 @@ export class RegisterComponent implements OnInit {
         });
       }
     } else {
-      console.log("Form is invalid");
+      // console.log("Form is invalid");
     }
   }
 }

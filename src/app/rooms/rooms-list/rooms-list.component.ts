@@ -12,6 +12,7 @@ import {
 import { RoomList } from "../rooms";
 import { RoomsService } from "../services/rooms.service";
 import { Router } from "@angular/router";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "hinv-rooms-list",
@@ -19,15 +20,21 @@ import { Router } from "@angular/router";
   styleUrls: ["./rooms-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
+export class RoomsListComponent implements OnInit, OnChanges {
   @Input() rooms: RoomList[] | null = [];
-
+  modalRef?: BsModalRef;
   @Input() title: string = "";
-
+  // @Output() isEditMode: boolean = false;
+  // @Output() roomId: number | null = null;
   @Output() selectedRoom = new EventEmitter<RoomList>();
 
-  constructor(private roomService: RoomsService, private route: Router) {}
+  constructor(
+    private roomService: RoomsService,
+    private route: Router,
+    private modalService: BsModalService
+  ) {}
 
+  ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
     if (changes["title"]) {
@@ -42,12 +49,31 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   editRoom(room: RoomList) {
     this.roomService.editRoom(room);
   }
-  ngOnDestroy(): void {
-    console.log("onDestroy is called");
-  }
+
   // getRooms() {
   //   this.roomService.getRooms().subscribe((data) => {});
   // }
+  openEditModal(template: any, roomId: number) {
+    // Pass data through initialState
+    const initialState = {
+      isEditMode: true,
+      roomId: roomId,
+    };
+    this.modalRef = this.modalService.show(template, {
+      class: "modal-lg",
+      initialState: initialState,
+    });
+
+    console.log("roomId", roomId);
+    console.log("isEditMode", true);
+  }
+
+  closeModal() {
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
+  }
+
   deleteRoom(id: number) {
     console.log("delete", id);
     this.roomService.deleteRoom(id).subscribe(
@@ -61,6 +87,4 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
       }
     );
   }
-
-  ngOnInit(): void {}
 }

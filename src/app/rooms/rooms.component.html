@@ -13,12 +13,34 @@
 
 <!-- <div *ngIf="selectedRoom">{{ selectedRoom | json }}</div> -->
 <div class="card shadow-sm p-4 m-2">
-  <router-outlet></router-outlet>
-
-  <div>
-    <button class="btn btn-success" routerLink="add">Add Room</button>
-    <!-- (click)="addRoom()" -->
+  <!-- <router-outlet></router-outlet> -->
+  <!-- rooms.component.html -->
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-success" (click)="openModal(addRoomTemplate)">
+      Add Room
+    </button>
   </div>
+
+  <!-- Define the template for the modal -->
+  <ng-template #addRoomTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title">Add Room</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closeModal()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <hinv-rooms-add (formSubmitted)="closeModal()"></hinv-rooms-add>
+    </div>
+  </ng-template>
+
+  <!-- <div>
+    <button class="btn btn-success" routerLink="add">Add Room</button>
+  </div> -->
+
   <!-- <h1>
   {{ getError$ | async }}
   Number of rooms: {{ roomsCount$ | async }}

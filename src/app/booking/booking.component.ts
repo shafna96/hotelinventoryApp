@@ -84,11 +84,11 @@ export class BookingComponent implements OnInit {
   }
 
   addBooking() {
-    console.log(this.bookingForm.value);
+    // console.log(this.bookingForm.value);
     this.bookingService
       .bookRoom(this.bookingForm.getRawValue())
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
       });
     // this.bookingForm.reset({
     //   roomId: "2",

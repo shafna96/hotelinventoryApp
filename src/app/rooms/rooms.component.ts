@@ -7,6 +7,7 @@ import {
   OnInit,
   QueryList,
   SkipSelf,
+  TemplateRef,
   ViewChild,
   ViewChildren,
 } from "@angular/core";
@@ -16,6 +17,7 @@ import { RoomsService } from "./services/rooms.service";
 import { catchError, map, Observable, of, Subject, Subscription } from "rxjs";
 import { HttpEventType, HttpRequest } from "@angular/common/http";
 import { ConfigService } from "../services/config.service";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "hinv-rooms",
@@ -25,6 +27,7 @@ import { ConfigService } from "../services/config.service";
 export class RoomsComponent
   implements OnInit, DoCheck, AfterViewInit, AfterViewChecked, OnDestroy
 {
+  modalRef?: BsModalRef;
   hotelName = "Hilton Hotel";
   numberOfRooms = 10;
   hideRooms = true;
@@ -77,9 +80,18 @@ export class RoomsComponent
 
   constructor(
     @SkipSelf() private roomService: RoomsService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private modalService: BsModalService
   ) {}
+  openModal(template: any) {
+    this.modalRef = this.modalService.show(template, { class: "modal-lg" });
+  }
 
+  closeModal() {
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
+  }
   ngOnInit(): void {
     // this.roomService.getRooms().subscribe();
     this.roomService.getPhotos().subscribe((event) => {
@@ -125,7 +137,7 @@ export class RoomsComponent
     // console.log(this.headerComponent);
     this.headerComponent.title = "Rooms View";
 
-    console.log((this.headerChildrenComponent.last.title = "Last title"));
+    // console.log((this.headerChildrenComponent.last.title = "Last title"));
   }
 
   ngAfterViewChecked(): void {}

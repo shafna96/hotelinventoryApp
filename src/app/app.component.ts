@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     public loginService: LoginService
   ) {
-    console.log(initService.config);
+    // console.log(initService.config);
   }
 
   ngOnInit(): void {

@@ -22,7 +22,7 @@ export class ContainerComponent implements OnInit, AfterContentInit {
   ngOnInit(): void {}
 
   ngAfterContentInit(): void {
-    console.log(this.employee);
+    // console.log(this.employee);
     this.employee.empName = "Rick";
   }
 }

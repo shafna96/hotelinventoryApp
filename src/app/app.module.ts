@@ -28,6 +28,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { RegisterComponent } from "./register/register.component";
 import { AuthModule } from "./auth/auth.module";
 import { DashboardModule } from "./dashboard/dashboard.module";
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -64,6 +65,7 @@ function initFactory(initService: InitService) {
     FormsModule,
     HeaderModule,
     AppRoutingModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     {
