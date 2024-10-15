@@ -68,15 +68,15 @@ export class RoomsComponent
 
   getError$ = this.error$.asObservable();
 
-  rooms$ = this.roomService.getRooms$.pipe(
-    catchError((err) => {
-      // console.log(err);
-      this.error$.next(err.message);
-      return of([]);
-    })
-  );
+  // rooms$ = this.roomService.getRooms$.pipe(
+  //   catchError((err) => {
+  //     // console.log(err);
+  //     this.error$.next(err.message);
+  //     return of([]);
+  //   })
+  // );
 
-  roomsCount$ = this.roomService.getRooms$.pipe(map((rooms) => rooms.length));
+  // roomsCount$ = this.roomService.getRooms$.pipe(map((rooms) => rooms.length));
 
   constructor(
     @SkipSelf() private roomService: RoomsService,
@@ -94,26 +94,26 @@ export class RoomsComponent
   }
   ngOnInit(): void {
     // this.roomService.getRooms().subscribe();
-    this.roomService.getPhotos().subscribe((event) => {
-      // console.log(data);
-      switch (event.type) {
-        case HttpEventType.Sent: {
-          console.log("Request has been made");
-          break;
-        }
-        case HttpEventType.ResponseHeader: {
-          console.log("Request success");
-          break;
-        }
-        case HttpEventType.DownloadProgress: {
-          this.totalBytes += event.loaded;
-          break;
-        }
-        case HttpEventType.Response: {
-          console.log(event.body);
-        }
-      }
-    });
+    // this.roomService.getPhotos().subscribe((event) => {
+    //   // console.log(data);
+    //   switch (event.type) {
+    //     case HttpEventType.Sent: {
+    //       console.log("Request has been made");
+    //       break;
+    //     }
+    //     case HttpEventType.ResponseHeader: {
+    //       console.log("Request success");
+    //       break;
+    //     }
+    //     case HttpEventType.DownloadProgress: {
+    //       this.totalBytes += event.loaded;
+    //       break;
+    //     }
+    //     case HttpEventType.Response: {
+    //       console.log(event.body);
+    //     }
+    //   }
+    // });
 
     this.stream.subscribe({
       next: (value) => console.log(value),

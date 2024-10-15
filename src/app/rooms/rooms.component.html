@@ -45,14 +45,14 @@
   {{ getError$ | async }}
   Number of rooms: {{ roomsCount$ | async }}
 </h1> -->
-  <div *ngIf="rooms$ | async as rooms">
-    <!-- [rooms]="roomList" -->
-    <hinv-rooms-list
-      [rooms]="rooms"
-      (selectedRoom)="selectRoom($event)"
-      [title]="title"
-    ></hinv-rooms-list>
-  </div>
+  <!-- <div *ngIf="rooms$ | async as rooms"> -->
+  <!-- [rooms]="roomList" -->
+  <!-- [rooms]="rooms" -->
+  <hinv-rooms-list
+    (selectedRoom)="selectRoom($event)"
+    [title]="title"
+  ></hinv-rooms-list>
+  <!-- </div> -->
   <!-- 
 <button (click)="toggle()">Toggle</button>
 <button (click)="editRoom()">Edit Room</button>

@@ -3,7 +3,7 @@ import { RoomList } from "../rooms";
 import { APP_SERVICE_CONFIG } from "../../AppConfig/appconfig.service";
 import { AppConfig } from "src/app/AppConfig/appconfig.interface";
 import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
-import { shareReplay, Subject } from "rxjs";
+import { shareReplay, Subject, tap } from "rxjs";
 import { environment } from "src/app/environments/environment";
 
 @Injectable({
@@ -12,10 +12,7 @@ import { environment } from "src/app/environments/environment";
 export class RoomsService {
   roomList: RoomList[] = [];
   //  headers = new HttpHeaders({ "token": "12345sdhgfhdgf" });
-  latestRooms$ = new Subject();
-  getRooms$ = this.http
-    .get<RoomList[]>(environment.apiEndpoint + "/rooms")
-    .pipe(shareReplay(1));
+  refreshRoom$ = new Subject<boolean>();
 
   constructor(
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -32,16 +29,32 @@ export class RoomsService {
   }
 
   addRoom(room: RoomList) {
-    return this.http.post<RoomList[]>(environment.apiEndpoint + "/rooms", room);
+    return this.http
+      .post<RoomList[]>(environment.apiEndpoint + "/rooms", room)
+      .pipe(
+        tap(() => {
+          this.refreshRoom$.next(true);
+        })
+      );
   }
 
   editRoom(room: RoomList) {
-    return this.http.put<RoomList[]>(environment.apiEndpoint + "/rooms", room);
+    return this.http
+      .put<RoomList[]>(environment.apiEndpoint + "/rooms", room)
+      .pipe(
+        tap(() => {
+          this.refreshRoom$.next(true);
+        })
+      );
   }
 
   deleteRoom(id: number) {
     console.log("delete service", id);
-    return this.http.delete(`${environment.apiEndpoint}/rooms/${id}`);
+    return this.http.delete(`${environment.apiEndpoint}/rooms/${id}`).pipe(
+      tap(() => {
+        this.refreshRoom$.next(true);
+      })
+    );
   }
 
   getPhotos() {
@@ -59,9 +72,12 @@ export class RoomsService {
   }
 
   updateRoom(id: number, room: RoomList) {
-    return this.http.put<RoomList>(
-      `${environment.apiEndpoint}/rooms/${id}`,
-      room
-    );
+    return this.http
+      .put<RoomList>(`${environment.apiEndpoint}/rooms/${id}`, room)
+      .pipe(
+        tap(() => {
+          this.refreshRoom$.next(true);
+        })
+      );
   }
 }

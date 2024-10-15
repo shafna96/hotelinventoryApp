@@ -3,6 +3,7 @@ import { AppConfig } from "../AppConfig/appconfig.interface";
 import { HttpClient } from "@angular/common/http";
 import { APP_SERVICE_CONFIG } from "../AppConfig/appconfig.service";
 import { catchError, map, Observable, of } from "rxjs";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -31,7 +32,7 @@ export class LoginService {
   login(email: string, password: string): Observable<boolean> {
     const loginData = { email, password };
     return this.http
-      .post<any>(`${this.config.apiEndpoint}/login`, loginData)
+      .post<any>(`${environment.apiEndpoint}/login`, loginData)
       .pipe(
         map((response) => {
           if (response && response.token) {

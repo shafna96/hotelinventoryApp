@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -13,6 +14,8 @@ import { RoomList } from "../rooms";
 import { RoomsService } from "../services/rooms.service";
 import { Router } from "@angular/router";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import Swal from "sweetalert2";
+import { catchError, of, Subject } from "rxjs";
 
 @Component({
   selector: "hinv-rooms-list",
@@ -21,22 +24,35 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsListComponent implements OnInit, OnChanges {
-  @Input() rooms: RoomList[] | null = [];
+  rooms: RoomList[] | null = [];
   modalRef?: BsModalRef;
   @Input() title: string = "";
-  // @Output() isEditMode: boolean = false;
-  // @Output() roomId: number | null = null;
   @Output() selectedRoom = new EventEmitter<RoomList>();
+  error$ = new Subject<string>();
 
   constructor(
     private roomService: RoomsService,
     private route: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getRooms();
+    this.roomService.refreshRoom$.subscribe((data) => {
+      if (data) {
+        this.getRooms();
+      }
+    });
+  }
+  getRooms() {
+    this.roomService.getRooms().subscribe((rooms: RoomList[]) => {
+      this.rooms = rooms;
+      console.log("Fetched rooms:", this.rooms);
+      this.cdr.detectChanges();
+    });
+  }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes["title"]) {
       this.title = changes["title"].currentValue.toUpperCase();
     }
@@ -50,11 +66,7 @@ export class RoomsListComponent implements OnInit, OnChanges {
     this.roomService.editRoom(room);
   }
 
-  // getRooms() {
-  //   this.roomService.getRooms().subscribe((data) => {});
-  // }
   openEditModal(template: any, roomId: number) {
-    // Pass data through initialState
     const initialState = {
       isEditMode: true,
       roomId: roomId,
@@ -63,9 +75,6 @@ export class RoomsListComponent implements OnInit, OnChanges {
       class: "modal-lg",
       initialState: initialState,
     });
-
-    console.log("roomId", roomId);
-    console.log("isEditMode", true);
   }
 
   closeModal() {
@@ -75,12 +84,16 @@ export class RoomsListComponent implements OnInit, OnChanges {
   }
 
   deleteRoom(id: number) {
-    console.log("delete", id);
     this.roomService.deleteRoom(id).subscribe(
       (response) => {
         console.log("Room deleted successfully", response);
-        // this.getRooms();
-        this.route.navigateByUrl("/rooms");
+        Swal.fire({
+          position: "bottom-end",
+          icon: "success",
+          title: "Room Deleted Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       },
       (error) => {
         console.error("Error deleting room", error);
